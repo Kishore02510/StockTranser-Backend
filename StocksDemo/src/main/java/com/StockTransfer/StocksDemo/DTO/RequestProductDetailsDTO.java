@@ -8,15 +8,29 @@ public class RequestProductDetailsDTO {
     private int receivedqty;
     private String productname;
     private int totalamount;
+    private int amountperunit;
+
+    public RequestProductDetailsDTO() {
+
+    }
+
+    public int getAmountperunit() {
+        return amountperunit;
+    }
+
+    public void setAmountperunit(int amountperunit) {
+        this.amountperunit = amountperunit;
+    }
 
     public RequestProductDetailsDTO(int finishedgoodstransferrequestid, int productid, String productname,
-                             int requestedQuantity, int receivedQuantity, int totalamount) {
+                                    int requestedQuantity, int receivedQuantity, int totalamount, int amountperunit) {
         this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
         this.productid = productid;
         this.productname = productname;
         this.requestedqty = requestedQuantity;
         this.receivedqty = receivedQuantity;
         this.totalamount = totalamount;
+        this.amountperunit = amountperunit;
     }
 
     public int getProductid() {

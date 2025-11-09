@@ -1,17 +1,14 @@
 package com.StockTransfer.StocksDemo.Controller;
 
-import com.StockTransfer.StocksDemo.DTO.FinishedGoodsTransferRequestDTO;
 import com.StockTransfer.StocksDemo.DTO.RequestDetailsDTO;
+import com.StockTransfer.StocksDemo.DTO.RequestReportDTO;
 import com.StockTransfer.StocksDemo.Entity.FinishedGoodsTransferRequest;
-import com.StockTransfer.StocksDemo.Entity.finishedgoodsprice;
 import com.StockTransfer.StocksDemo.Service.FinishedGoodsTranserRequestService;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.StockTransfer.StocksDemo.Service.FinishedGoodsTransferRequestDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,6 +16,9 @@ public class FinishedGoodsTransferRequestController {
 
     @Autowired
     private FinishedGoodsTranserRequestService fgtrService;
+
+    @Autowired
+    private FinishedGoodsTransferRequestDetailsService fgtrds;
 
     @PostMapping("/savetransferrequest")
     public ResponseEntity<String> saveRequest(@RequestBody FinishedGoodsTransferRequest fgtr){
@@ -34,6 +34,20 @@ public class FinishedGoodsTransferRequestController {
     @GetMapping("/requestdetails")
     public ResponseEntity<List<RequestDetailsDTO>> getProductsByRequestId() {
         List<RequestDetailsDTO> result = fgtrService.getRequestDetails();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/reqREport")
+    public ResponseEntity<List<RequestReportDTO>> getReqReport(@RequestParam String fromdate,
+                                                               @RequestParam String todate){
+        List<RequestReportDTO> result = fgtrService.getRequestDetails(fromdate,todate);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/reqProdReport")
+    public ResponseEntity<List<RequestReportDTO>> getProductRequestDetails(@RequestParam String fromdate,
+                                                               @RequestParam String todate){
+        List<RequestReportDTO> result = fgtrds.getProductRequestDetails(fromdate,todate);
         return ResponseEntity.ok(result);
     }
 

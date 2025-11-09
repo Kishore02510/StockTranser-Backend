@@ -26,5 +26,59 @@ public class FinishedGoodsTransfer {
 
     private int activestatus ;
 
+    public int getFinishedgoodstransferid() {
+        return finishedgoodstransferid;
+    }
 
+    public void setFinishedgoodstransferid(int finishedgoodstransferid) {
+        this.finishedgoodstransferid = finishedgoodstransferid;
+    }
+
+    public LocalDate getFinishedgoodstransferdate() {
+        return finishedgoodstransferdate;
+    }
+
+    public void setFinishedgoodstransferdate(LocalDate finishedgoodstransferdate) {
+        this.finishedgoodstransferdate = finishedgoodstransferdate;
+    }
+
+    public int getFinishedgoodstransferrefno() {
+        return finishedgoodstransferrefno;
+    }
+
+    public void setFinishedgoodstransferrefno(int finishedgoodstransferrefno) {
+        this.finishedgoodstransferrefno = finishedgoodstransferrefno;
+    }
+
+    public int getIssuingofficeid() {
+        return issuingofficeid;
+    }
+
+    public void setIssuingofficeid(int issuingofficeid) {
+        this.issuingofficeid = issuingofficeid;
+    }
+
+    public int getReceivingofficeid() {
+        return receivingofficeid;
+    }
+
+    public void setReceivingofficeid(int receivingofficeid) {
+        this.receivingofficeid = receivingofficeid;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public int getActivestatus() {
+        return activestatus;
+    }
+
+    public void setActivestatus(int activestatus) {
+        this.activestatus = activestatus;
+    }
 }

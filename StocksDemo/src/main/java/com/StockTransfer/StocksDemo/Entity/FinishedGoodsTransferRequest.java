@@ -128,8 +128,6 @@ public class FinishedGoodsTransferRequest {
     public FinishedGoodsTransferRequest(int finishedgoodstransferrequestid, LocalDate finishedgoodstransferrequestdate, int requestingofficeid, int receivingofficeid, String remarks, int sendingemployeeid, int activestatus, int finishedgoodstransferrequestrefno) {
         this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
         this.finishedgoodstransferrequestdate = finishedgoodstransferrequestdate;
-        this.requestingofficeid = requestingofficeid;
-        this.receivingofficeid = receivingofficeid;
         this.remarks = remarks;
         this.sendingemployeeid = sendingemployeeid;
         this.activestatus = activestatus;

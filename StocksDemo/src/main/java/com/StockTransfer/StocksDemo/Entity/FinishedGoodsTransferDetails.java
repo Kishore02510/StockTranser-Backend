@@ -11,22 +11,35 @@ public class FinishedGoodsTransferDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int finishedgoodstransferdetailsid;
 
-//    private int finishedgoodstransferid;
-    private int productid ;
+    private int productid;
     private int quantity;
-    private int amountperunit;
+    private float amountperunit;
+
+    @Column(precision = 15, scale = 2)
     private BigDecimal nettotalamount;
+
     @ManyToOne
     @JoinColumn(name = "finishedgoodstransferid")
     private FinishedGoodsTransfer request;
 
-//    public int getFinishedgoodstransferid() {
-//        return finishedgoodstransferid;
-//    }
-//
-//    public void setFinishedgoodstransferid(int finishedgoodstransferid) {
-//        this.finishedgoodstransferid = finishedgoodstransferid;
-//    }
+    public FinishedGoodsTransferDetails() {}
+
+    public FinishedGoodsTransferDetails(int productid, int quantity, float amountperunit,
+                                        BigDecimal nettotalamount, FinishedGoodsTransfer request) {
+        this.productid = productid;
+        this.quantity = quantity;
+        this.amountperunit = amountperunit;
+        this.nettotalamount = nettotalamount;
+        this.request = request;
+    }
+
+    public int getFinishedgoodstransferdetailsid() {
+        return finishedgoodstransferdetailsid;
+    }
+
+    public void setFinishedgoodstransferdetailsid(int finishedgoodstransferdetailsid) {
+        this.finishedgoodstransferdetailsid = finishedgoodstransferdetailsid;
+    }
 
     public int getProductid() {
         return productid;
@@ -44,11 +57,11 @@ public class FinishedGoodsTransferDetails {
         this.quantity = quantity;
     }
 
-    public int getAmountperunit() {
+    public float getAmountperunit() {
         return amountperunit;
     }
 
-    public void setAmountperunit(int amountperunit) {
+    public void setAmountperunit(float amountperunit) {
         this.amountperunit = amountperunit;
     }
 
@@ -66,21 +79,5 @@ public class FinishedGoodsTransferDetails {
 
     public void setRequest(FinishedGoodsTransfer request) {
         this.request = request;
-    }
-
-    public FinishedGoodsTransferDetails( int productid, int quantity, int amountperunit, BigDecimal nettotalamount, FinishedGoodsTransfer request) {
-        this.productid = productid;
-        this.quantity = quantity;
-        this.amountperunit = amountperunit;
-        this.nettotalamount = nettotalamount;
-        this.request = request;
-    }
-
-    public int getFinishedgoodstransferdetailsid() {
-        return finishedgoodstransferdetailsid;
-    }
-
-    public void setFinishedgoodstransferdetailsid(int finishedgoodstransferdetailsid) {
-        this.finishedgoodstransferdetailsid = finishedgoodstransferdetailsid;
     }
 }

@@ -1,5 +1,7 @@
 package com.StockTransfer.StocksDemo.DTO;
 
+import java.sql.Date;
+
 public class RequestDetailsDTO {
     private int finishedgoodstransferrequestid ;
     private String issuingofz ;
@@ -11,6 +13,10 @@ public class RequestDetailsDTO {
         this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
         this.issuingofz = issuingofz;
         this.transferingToOfz = transferingtoofz;
+    }
+
+    public RequestDetailsDTO() {
+
     }
 
     public int getFinishedgoodstransferrequestid() {
@@ -59,9 +65,63 @@ public class RequestDetailsDTO {
         this.transactiondatetime = transactiondatetime;
     }
 
+    private Integer requestId;
+    private Integer receivingOfficeId;
+    private Integer requestingOfficeId;
+    private String requestingOfficeName;
+    private String receivingOfficeName;
+    private Date transactionDateTime;
 
 
-//    public RequestDetailsDTO(int productid, int requestedqty, int receivedqty, String productname) {
+    public Integer getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Integer requestId) {
+        this.requestId = requestId;
+    }
+
+    public Integer getReceivingOfficeId() {
+        return receivingOfficeId;
+    }
+
+    public void setReceivingOfficeId(Integer receivingOfficeId) {
+        this.receivingOfficeId = receivingOfficeId;
+    }
+
+    public Integer getRequestingOfficeId() {
+        return requestingOfficeId;
+    }
+
+    public void setRequestingOfficeId(Integer requestingOfficeId) {
+        this.requestingOfficeId = requestingOfficeId;
+    }
+
+    public String getRequestingOfficeName() {
+        return requestingOfficeName;
+    }
+
+    public void setRequestingOfficeName(String requestingOfficeName) {
+        this.requestingOfficeName = requestingOfficeName;
+    }
+
+    public String getReceivingOfficeName() {
+        return receivingOfficeName;
+    }
+
+    public void setReceivingOfficeName(String receivingOfficeName) {
+        this.receivingOfficeName = receivingOfficeName;
+    }
+
+    public Date getTransactionDateTime() {
+        return transactionDateTime;
+    }
+
+    public void setTransactionDateTime(Date transactionDateTime) {
+        this.transactionDateTime = transactionDateTime;
+    }
+
+    //    public RequestDetailsDTO(int productid, int requestedqty, int receivedqty, String productname) {
 //        this.productid = productid;
 //        this.requestedqty = requestedqty;
 //        this.receivedqty = receivedqty;

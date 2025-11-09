@@ -60,6 +60,7 @@ public class FinishedGoodsRequestDetailsController {
 
     @GetMapping("/productdetails/{FGTRId}")
     public ResponseEntity<List<RequestProductDetailsDTO>> getProdDetails(@PathVariable int FGTRId){
+        System.out.println(" FGTRId --> "+ FGTRId);
         return ResponseEntity.ok(fds.getProdDetails(FGTRId));
     }
 

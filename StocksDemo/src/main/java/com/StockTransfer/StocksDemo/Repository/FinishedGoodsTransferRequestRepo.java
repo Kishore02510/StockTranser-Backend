@@ -26,19 +26,35 @@ public interface FinishedGoodsTransferRequestRepo extends JpaRepository<Finished
     """)
     List<RequestDetailsDTO> getRequestDetails(@Param("requestId") int requestId);
 
-    @Query("""
-    SELECT new com.StockTransfer.StocksDemo.DTO.RequestDetailsDTO(
+    @Query(value = """
+    SELECT 
         fgtr.finishedgoodstransferrequestid,
-        rco.officename,
-        rqo.officename,
-        fgtr.remarks,
-        CAST(fgtr.finishedgoodstransferrequestdate AS string)
-    )
-    FROM FinishedGoodsTransferRequest fgtr
-    JOIN fgtr.receivingOffice rco
-    JOIN fgtr.requestingOffice rqo
-    ORDER BY fgtr.finishedgoodstransferrequestdate
-    """)
-    List<RequestDetailsDTO> getRequestDetails();
+        fgtr.receivingofficeid,
+        fgtr.requestingofficeid,
+        o1.officename AS requestingOfficeName,
+        o2.officename AS receivingOfficeName,
+        fgtr.transactiondatetime,fgtr.remarks
+    FROM public.finished_goods_transfer_request AS fgtr
+    JOIN public.offices AS o1 ON o1.officeid = fgtr.requestingofficeid
+    JOIN public.offices AS o2 ON o2.officeid = fgtr.receivingofficeid
+    """, nativeQuery = true)
+    List<Object[]> getRequestDetails();
+
+    @Query(value = """
+    
+        select to_char(transactiondatetime,'dd-mm-yyyy') as requestdate , o1.officename as requestingoffice,
+                o2.officename as receivingofficeid,remarks,case when activestatus = 0 then 'Data Entered'
+              when activestatus = 1 then 'Approved'
+              when activestatus = 9 then 'Rejected' end as status
+              from public.finished_goods_transfer_request as fgtr
+              join public.offices as o1 on o1.officeid = fgtr.requestingofficeid
+              join public.offices as o2 on o2.officeid = fgtr.receivingofficeid
+              where transactiondatetime between TO_DATE(:fromdate, 'DD-MM-YYYY') and TO_DATE(:todate, 'DD-MM-YYYY')
+    """, nativeQuery = true)
+    List<Object[]> getRequestDetails(@Param("fromdate") String fromdate,
+                                     @Param("todate") String todate);
+
+
+
 
 }
