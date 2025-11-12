@@ -38,7 +38,7 @@ public interface FinishedGoodsTransferRequestDetailsRepo extends JpaRepository<F
     @Transactional
     @Query(value = """
         UPDATE public.finished_goods_transfer_request_details
-        SET received_quantity = :receivedQuantity
+        SET received_quantity = received_quantity + :receivedQuantity
         WHERE productid = :productId
           AND finishedgoodstransferrequestid = :requestId
         """, nativeQuery = true)
@@ -58,5 +58,13 @@ public interface FinishedGoodsTransferRequestDetailsRepo extends JpaRepository<F
     """, nativeQuery = true)
     List<Object[]> getProdRequestDetails(@Param("fromdate") String fromdate,
                                          @Param("todate") String todate);
+
+    @Query(value = """
+            select p.productname,p.productid,requested_quantity,amountperunit,totalamount
+            from public.finished_goods_transfer_request_details as fgd
+            join public.products as p on p.productid = fgd.productid
+            where fgd.finishedgoodstransferrequestid = :requestid                                                                                                               		
+    """, nativeQuery = true)
+    List<Object[]> getProdRequestDetailsForApproval(@Param("requestid") Integer requestid);
 
 }

@@ -50,4 +50,20 @@ public class FinishedGoodsTransferRequestDetailsService {
         return dtoList;
     }
 
+    public List<RequestProductDetailsDTO> getRequestDetailsForApproval(Integer requestid){
+
+        List<Object[]> results = fgtReqRepo.getProdRequestDetailsForApproval(requestid);
+        List<RequestProductDetailsDTO> dtoList = new ArrayList<>();
+        for (Object[] obj : results) {
+            RequestProductDetailsDTO dto = new RequestProductDetailsDTO();
+            dto.setProductname((String)obj[0]);
+            dto.setProductid((Integer)obj[1]);
+            dto.setRequestedqty((Integer) obj[2]);
+            dto.setAmountperunit((Integer)obj[3]);
+            dto.setTotalamount((Integer) obj[4]);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
 }

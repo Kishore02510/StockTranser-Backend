@@ -1,6 +1,7 @@
 package com.StockTransfer.StocksDemo.Controller;
 
 import com.StockTransfer.StocksDemo.DTO.RequestDetailsDTO;
+import com.StockTransfer.StocksDemo.DTO.RequestProductDetailsDTO;
 import com.StockTransfer.StocksDemo.DTO.RequestReportDTO;
 import com.StockTransfer.StocksDemo.Entity.FinishedGoodsTransferRequest;
 import com.StockTransfer.StocksDemo.Service.FinishedGoodsTranserRequestService;
@@ -50,5 +51,28 @@ public class FinishedGoodsTransferRequestController {
         List<RequestReportDTO> result = fgtrds.getProductRequestDetails(fromdate,todate);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/getReqDetailsForApproval")
+    public ResponseEntity<List<RequestReportDTO>> getTransferRequestDetailsForApproval(){
+
+        List<RequestReportDTO> result = fgtrService.getRequestDetailsForApproval();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/getReqProdDetailsForApproval/{requestid}")
+    public ResponseEntity<List<RequestProductDetailsDTO>> getTransferRequestProdDetailsForApproval(@PathVariable("requestid") Integer requestid){
+
+        List<RequestProductDetailsDTO> result = fgtrds.getRequestDetailsForApproval(requestid);
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/getReqDetailsForApproval")
+    public ResponseEntity<String> updateStatus(
+            @RequestParam int requestid,
+            @RequestParam int argStatus) {
+        String message = fgtrService.updateStatus(argStatus,requestid);
+        return ResponseEntity.ok(message);
+    }
+
 
 }

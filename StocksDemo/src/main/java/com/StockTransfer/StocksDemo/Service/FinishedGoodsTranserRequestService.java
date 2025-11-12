@@ -46,6 +46,7 @@ public class FinishedGoodsTranserRequestService {
             dto.setReceivingOfficeName((String) obj[4]);
             dto.setTransactionDateTime((Date) obj[5]);
             dto.setRemarks((String) obj[6]);
+            dto.setFinishedgoodstransferrequestrefno((String) obj[7]);
             dtoList.add(dto);
         }
 
@@ -64,10 +65,39 @@ public class FinishedGoodsTranserRequestService {
             dto.setReceivingOffice((String) obj[2]);
             dto.setRemarks((String) obj[3]);
             dto.setStatus((String) obj[4]);
+            dto.setFinishedgoodstransferrequestrefno((String) obj[5]);
             dtoList.add(dto);
         }
         return dtoList;
     }
+
+    public List<RequestReportDTO> getRequestDetailsForApproval(){
+
+        List<Object[]> results = fgtReq.getRequestDetailsForApproval();
+        List<RequestReportDTO> dtoList = new ArrayList<>();
+        for (Object[] obj : results) {
+            RequestReportDTO dto = new RequestReportDTO();
+            dto.setFinishedGoodsTransferRequestId((Integer) obj[0]);
+            dto.setRequestingOffice((String) obj[1]);
+            dto.setReceivingOffice((String) obj[2]);
+            dto.setRequestDate((String) obj[3]);
+            dto.setRemarks((String) obj[4]);
+            dto.setFinishedgoodstransferrequestrefno((String) obj[5]);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    public String updateStatus(int status, int requestId) {
+        int rows = fgtReq.approveOrReject(status, requestId);
+        System.out.println("rows --> "+rows);
+        if (rows > 0) {
+            return (status == 1) ? "Approved" : "Rejected";
+        } else {
+            return "No record found to update.";
+        }
+    }
+
 
 
 }

@@ -9,6 +9,16 @@ public class RequestDetailsDTO {
     private String remarks;
     private String transactiondatetime;
 
+    private String finishedgoodstransferrequestrefno;
+
+    public String getFinishedgoodstransferrequestrefno() {
+        return finishedgoodstransferrequestrefno;
+    }
+
+    public void setFinishedgoodstransferrequestrefno(String finishedgoodstransferrequestrefno) {
+        this.finishedgoodstransferrequestrefno = finishedgoodstransferrequestrefno;
+    }
+
     public RequestDetailsDTO(int finishedgoodstransferrequestid, String issuingofz, String transferingtoofz) {
         this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
         this.issuingofz = issuingofz;

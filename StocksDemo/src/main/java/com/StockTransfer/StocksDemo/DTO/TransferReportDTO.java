@@ -17,6 +17,16 @@ public class TransferReportDTO {
     private Double netTotalAmount;
     private Integer quantity;
 
+    private String finishedgoodstransferrefno;
+
+    public String getFinishedgoodstransferrefno() {
+        return finishedgoodstransferrefno;
+    }
+
+    public void setFinishedgoodstransferrefno(String finishedgoodstransferrefno) {
+        this.finishedgoodstransferrefno = finishedgoodstransferrefno;
+    }
+
     public Integer getFinishedGoodsTransferId() {
         return finishedGoodsTransferId;
     }

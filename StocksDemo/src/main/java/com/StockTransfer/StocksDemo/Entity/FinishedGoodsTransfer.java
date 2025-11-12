@@ -15,8 +15,8 @@ public class FinishedGoodsTransfer {
     @CreationTimestamp
     @Column(name = "transactiondatetime", updatable = false, nullable = false)
     private LocalDate finishedgoodstransferdate;
-
-    private int finishedgoodstransferrefno;
+    @Column(unique = true)
+    private String finishedgoodstransferrefno;
 
     private int issuingofficeid;
 
@@ -25,6 +25,18 @@ public class FinishedGoodsTransfer {
     private String remarks ;
 
     private int activestatus ;
+
+    @ManyToOne
+    @JoinColumn(name = "finishedgoodstransferrequestid")
+    private FinishedGoodsTransferRequest finishedGoodsTransferRequest;
+
+    public FinishedGoodsTransferRequest getFinishedGoodsTransferRequest() {
+        return finishedGoodsTransferRequest;
+    }
+
+    public void setFinishedGoodsTransferRequest(FinishedGoodsTransferRequest finishedGoodsTransferRequest) {
+        this.finishedGoodsTransferRequest = finishedGoodsTransferRequest;
+    }
 
     public int getFinishedgoodstransferid() {
         return finishedgoodstransferid;
@@ -42,11 +54,11 @@ public class FinishedGoodsTransfer {
         this.finishedgoodstransferdate = finishedgoodstransferdate;
     }
 
-    public int getFinishedgoodstransferrefno() {
+    public String getFinishedgoodstransferrefno() {
         return finishedgoodstransferrefno;
     }
 
-    public void setFinishedgoodstransferrefno(int finishedgoodstransferrefno) {
+    public void setFinishedgoodstransferrefno(String finishedgoodstransferrefno) {
         this.finishedgoodstransferrefno = finishedgoodstransferrefno;
     }
 

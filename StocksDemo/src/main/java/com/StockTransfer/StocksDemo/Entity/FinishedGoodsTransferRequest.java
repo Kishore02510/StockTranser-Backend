@@ -25,7 +25,8 @@ public class FinishedGoodsTransferRequest {
 
     private int activestatus;
 
-    private int finishedgoodstransferrequestrefno;
+    @Column(unique = true)
+    private String finishedgoodstransferrequestrefno;
 
     public FinishedGoodsTransferRequest(){
 
@@ -38,7 +39,7 @@ public class FinishedGoodsTransferRequest {
     @JoinColumn(name = "receivingofficeid", insertable = false, updatable = false)
     private Offices receivingOffice;
 
-    public FinishedGoodsTransferRequest(int finishedgoodstransferrequestid, LocalDate finishedgoodstransferrequestdate, String remarks, int sendingemployeeid, int activestatus, int finishedgoodstransferrequestrefno, Offices requestingOffice, Offices receivingOffice) {
+    public FinishedGoodsTransferRequest(int finishedgoodstransferrequestid, LocalDate finishedgoodstransferrequestdate, String remarks, int sendingemployeeid, int activestatus, String finishedgoodstransferrequestrefno, Offices requestingOffice, Offices receivingOffice) {
         this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
         this.finishedgoodstransferrequestdate = finishedgoodstransferrequestdate;
         this.remarks = remarks;
@@ -121,11 +122,11 @@ public class FinishedGoodsTransferRequest {
         this.activestatus = activestatus;
     }
 
-    public int getFinishedgoodstransferrequestrefno() {
+    public String getFinishedgoodstransferrequestrefno() {
         return finishedgoodstransferrequestrefno;
     }
 
-    public FinishedGoodsTransferRequest(int finishedgoodstransferrequestid, LocalDate finishedgoodstransferrequestdate, int requestingofficeid, int receivingofficeid, String remarks, int sendingemployeeid, int activestatus, int finishedgoodstransferrequestrefno) {
+    public FinishedGoodsTransferRequest(int finishedgoodstransferrequestid, LocalDate finishedgoodstransferrequestdate, int requestingofficeid, int receivingofficeid, String remarks, int sendingemployeeid, int activestatus, String finishedgoodstransferrequestrefno) {
         this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
         this.finishedgoodstransferrequestdate = finishedgoodstransferrequestdate;
         this.remarks = remarks;
@@ -134,7 +135,7 @@ public class FinishedGoodsTransferRequest {
         this.finishedgoodstransferrequestrefno = finishedgoodstransferrequestrefno;
     }
 
-    public void setFinishedgoodstransferrequestrefno(int finishedgoodstransferrequestrefno) {
+    public void setFinishedgoodstransferrequestrefno(String finishedgoodstransferrequestrefno) {
         this.finishedgoodstransferrequestrefno = finishedgoodstransferrequestrefno;
     }
 

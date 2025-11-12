@@ -8,6 +8,16 @@ public class FinishedGoodsTransferDTO {
     private String remarks;
     private List<TransferProductDetailsDTO> products;
 
+    private int finishedgoodstransferrequestid;
+
+    public int getFinishedgoodstransferrequestid() {
+        return finishedgoodstransferrequestid;
+    }
+
+    public void setFinishedgoodstransferrequestid(int finishedgoodstransferrequestid) {
+        this.finishedgoodstransferrequestid = finishedgoodstransferrequestid;
+    }
+
     public int getIssuingofzid() {
         return issuingofzid;
     }

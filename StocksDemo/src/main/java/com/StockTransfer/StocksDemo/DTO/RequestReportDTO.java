@@ -23,6 +23,16 @@ public class RequestReportDTO {
 
     private int requestedQuantity;
 
+    private  String finishedgoodstransferrequestrefno;
+
+    public String getFinishedgoodstransferrequestrefno() {
+        return finishedgoodstransferrequestrefno;
+    }
+
+    public void setFinishedgoodstransferrequestrefno(String finishedgoodstransferrequestrefno) {
+        this.finishedgoodstransferrequestrefno = finishedgoodstransferrequestrefno;
+    }
+
     public int getRequestedQuantity() {
         return requestedQuantity;
     }

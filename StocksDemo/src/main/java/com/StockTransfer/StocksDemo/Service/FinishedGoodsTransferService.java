@@ -7,6 +7,7 @@ import com.StockTransfer.StocksDemo.DTO.TransferProductDetailsDTO;
 import com.StockTransfer.StocksDemo.DTO.TransferReportDTO;
 import com.StockTransfer.StocksDemo.Entity.FinishedGoodsTransfer;
 import com.StockTransfer.StocksDemo.Entity.FinishedGoodsTransferDetails;
+import com.StockTransfer.StocksDemo.Entity.FinishedGoodsTransferRequest;
 import com.StockTransfer.StocksDemo.Repository.FinishedGoodsTransferDetailsRepository;
 import com.StockTransfer.StocksDemo.Repository.FinishedGoodsTransferRepository;
 import com.StockTransfer.StocksDemo.Repository.FinishedGoodsTransferRequestDetailsRepo;
@@ -30,10 +31,23 @@ public class FinishedGoodsTransferService {
     @Autowired
     private FinishedGoodsTransferRequestDetailsRepo fgtrd;
 
+    @Autowired
+    private FinishedGoodsTransferRequestRepo ftrr;
+
     public String saveTransfer(FinishedGoodsTransferDTO dto) {
         try {
+            FinishedGoodsTransferRequest requestEntity =
+                    ftrr.findById(dto.getFinishedgoodstransferrequestid())
+                            .orElseThrow(() -> new RuntimeException("Request ID not found: " + dto.getFinishedgoodstransferrequestid()));
+
             // Create and save master record
             FinishedGoodsTransfer transfer = new FinishedGoodsTransfer();
+            Long nextSeq = transferRepo.getNextSequence();  // e.g., 1, 2, 3
+
+            String refNo = String.format("ST-%03d", nextSeq);  // STR-001, STR-002
+            transfer.setFinishedgoodstransferrefno(refNo);
+
+            transfer.setFinishedGoodsTransferRequest(requestEntity);
             transfer.setIssuingofficeid(dto.getIssuingofzid());
             transfer.setReceivingofficeid(dto.getTransferingofzid());
             transfer.setRemarks(dto.getRemarks());
@@ -45,7 +59,7 @@ public class FinishedGoodsTransferService {
                 FinishedGoodsTransferDetails details = new FinishedGoodsTransferDetails();
                 details.setProductid(prod.getProductid());
                 details.setQuantity(prod.getRequestedQuantity());
-                fgtrd.updateReceivedQuantity(prod.getRequestedQuantity(),prod.getProductid(),prod.getFinishedgoodstransferrequestid());
+                fgtrd.updateReceivedQuantity(prod.getRequestedQuantity(),prod.getProductid(),requestEntity.getFinishedgoodstransferrequestid());
                 details.setAmountperunit(prod.getAmountperunit());
 //                System.out.println("prod.getRequestedQuantity() -> "+ prod.getRequestedQuantity());
 //                System.out.println("prod.getAmountperunit -->"+ prod.getAmountperunit());
@@ -59,8 +73,9 @@ public class FinishedGoodsTransferService {
                 details.setRequest(transfer);
                 detailsRepo.save(details);
             }
-
-            return "Transfer request saved successfully!";
+            ftrr.updateStatusIfAllReceived(requestEntity.getFinishedgoodstransferrequestid());
+            ftrr.getRequestDetailsForApproval();
+        return "Transfer request saved successfully! Transfer Ref Code : "+ refNo;
         } catch (Exception e) {
             e.printStackTrace();
             return "Error while saving transfer request: " + e.getMessage();
@@ -80,6 +95,7 @@ public class FinishedGoodsTransferService {
             dto.setTransferingOffice((String) obj[3]);
             dto.setRemarks((String) obj[4]);
             dto.setStatus((String) obj[5]);
+            dto.setFinishedgoodstransferrefno((String) obj[6]);
             dtoList.add(dto);
         }
         return dtoList;

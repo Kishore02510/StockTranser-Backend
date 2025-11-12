@@ -16,7 +16,7 @@ public interface FinishedGoodsTransferRepository extends JpaRepository<FinishedG
             select fgtr.finishedgoodstransferid, to_char(transactiondatetime,'dd-mm-yyyy') as requestdate , o1.officename as issuingoffice,
                 o2.officename as transferingoffice,remarks,case when activestatus = 0 then 'Data Entered'
                 when activestatus = 1 then 'Approved'
-                when activestatus = 9 then 'Rejected' end as status
+                when activestatus = 9 then 'Rejected' end as status,fgtr.finishedgoodstransferrefno
                 from public.finished_goods_transfer as fgtr
                 join public.offices as o1 on o1.officeid = fgtr.issuingofficeid
                 join public.offices as o2 on o2.officeid = fgtr.receivingofficeid
@@ -24,4 +24,7 @@ public interface FinishedGoodsTransferRepository extends JpaRepository<FinishedG
     """, nativeQuery = true)
     List<Object[]> getTransferDetails(@Param("fromdate") String fromdate,
                                      @Param("todate") String todate);
+
+    @Query(value = "SELECT nextval('finished_goods_transfer_ref_seq')", nativeQuery = true)
+    Long getNextSequence();
 }

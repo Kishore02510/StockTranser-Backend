@@ -35,11 +35,15 @@ public class FinishedGoodsRequestDetailsController {
     public ResponseEntity<?> saveFinishedGoodsRequest(@RequestBody FinishedGoodsTransferRequestDTO fgtRDTO) {
         // 1. Save main request
         FinishedGoodsTransferRequest request = new FinishedGoodsTransferRequest();
+        Long nextSeq = fgtrRepo.getNextSequence();  // e.g., 1, 2, 3
+
+        String refNo = String.format("STR-%03d", nextSeq);  // STR-001, STR-002
+        request.setFinishedgoodstransferrequestrefno(refNo);
         request.setRequestingofficeid(fgtRDTO.getRequestingofficeid());
         request.setReceivingofficeid(fgtRDTO.getReceivingofficeid());
         request.setRemarks(fgtRDTO.getRemarks());
         request.setSendingemployeeid(fgtRDTO.getSendingemployeeid());
-        request.setActivestatus(1); // example
+        request.setActivestatus(0); // example
         fgtrRepo.save(request); // save to get ID
 
         // 2. Save each product detail
@@ -54,7 +58,7 @@ public class FinishedGoodsRequestDetailsController {
             fgtrDetails.save(detail);
         }
 
-        return ResponseEntity.ok(Map.of("status", "success", "message", "Request saved successfully"));
+        return ResponseEntity.ok(Map.of("status", "success", "message", "Request saved successfully../n Request Ref Code : "+refNo));
     }
 
 
