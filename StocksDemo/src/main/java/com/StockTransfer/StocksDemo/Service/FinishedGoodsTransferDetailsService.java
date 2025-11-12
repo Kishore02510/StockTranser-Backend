@@ -27,6 +27,8 @@ public class FinishedGoodsTransferDetailsService {
             dto.setNetTotalAmount(obj[4] != null ? ((Number) obj[4]).doubleValue() : 0.0);
             dto.setQuantity(obj[5] != null ? ((Number) obj[5]).intValue() : 0);
             dto.setTransactionDate((String) obj[6]);
+            dto.setFinishedgoodstransferrefno((String) obj[7]);
+            dto.setFinishedgoodstransferrequestrefno((String) obj[8]);
             dtoList.add(dto);
         }
         return dtoList;

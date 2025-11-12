@@ -19,6 +19,16 @@ public class TransferReportDTO {
 
     private String finishedgoodstransferrefno;
 
+    private String finishedgoodstransferrequestrefno;
+
+    public String getFinishedgoodstransferrequestrefno() {
+        return finishedgoodstransferrequestrefno;
+    }
+
+    public void setFinishedgoodstransferrequestrefno(String finishedgoodstransferrequestrefno) {
+        this.finishedgoodstransferrequestrefno = finishedgoodstransferrequestrefno;
+    }
+
     public String getFinishedgoodstransferrefno() {
         return finishedgoodstransferrefno;
     }

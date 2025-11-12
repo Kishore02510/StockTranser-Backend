@@ -45,6 +45,7 @@ public class FinishedGoodsTransferRequestDetailsService {
             dto.setRequestDate((String) obj[5]);
             dto.setReceivedQuantity((Integer) obj[6]);
             dto.setRequestedQuantity((Integer)obj[7]);
+            dto.setFinishedgoodstransferrequestrefno((String) obj[8]);
             dtoList.add(dto);
         }
         return dtoList;

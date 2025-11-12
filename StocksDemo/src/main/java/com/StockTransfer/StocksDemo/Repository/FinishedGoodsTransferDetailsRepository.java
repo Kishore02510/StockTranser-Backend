@@ -12,12 +12,15 @@ import java.util.List;
 public interface FinishedGoodsTransferDetailsRepository extends JpaRepository<FinishedGoodsTransferDetails, Integer> {
 
     @Query(value = """
-            select fgt.finishedgoodstransferid,p.productid,p.productname,amountperunit,nettotalamount,quantity,to_char(transactiondatetime,'dd-mm-yyyy') as transferdate
+            select fgt.finishedgoodstransferid,p.productid,p.productname,amountperunit,nettotalamount,quantity,to_char(fgt.transactiondatetime,'dd-mm-yyyy') as transferdate,
+            fgt.finishedgoodstransferrefno,fgtr.finishedgoodstransferrequestrefno
                 from public.finished_goods_transfer as fgt
                 join public.finished_goods_transfer_details as fgtd
                 on fgt.finishedgoodstransferid = fgtd.finishedgoodstransferid
+                join public.finished_goods_transfer_request as fgtr
+                 on fgtr.finishedgoodstransferrequestid = fgt.finishedgoodstransferrequestid
                 join public.products as p on p.productid = fgtd.productid
-                where transactiondatetime between TO_DATE(:fromdate, 'DD-MM-YYYY') and TO_DATE(:todate, 'DD-MM-YYYY')
+                where fgt.transactiondatetime between TO_DATE(:fromdate, 'DD-MM-YYYY') and TO_DATE(:todate, 'DD-MM-YYYY')
                                                                                                                                		
     """, nativeQuery = true)
     List<Object[]> getTransferProdDetails(@Param("fromdate") String fromdate,

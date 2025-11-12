@@ -48,7 +48,8 @@ public interface FinishedGoodsTransferRequestDetailsRepo extends JpaRepository<F
 
     @Query(value = """
             select fgtr.finishedgoodstransferrequestid,p.productid,p.productname,fgtrd.amountperunit,fgtrd.totalamount,
-                   to_char(transactiondatetime,'dd-mm-yyyy') as requestdate,fgtrd.received_quantity,fgtrd.requested_quantity
+                   to_char(transactiondatetime,'dd-mm-yyyy') as requestdate,fgtrd.received_quantity,fgtrd.requested_quantity,
+                   fgtr.finishedgoodstransferrequestrefno
                    from public.finished_goods_transfer_request as fgtr
                    join public.finished_goods_transfer_request_details as fgtrd
                      on fgtrd.finishedgoodstransferrequestid = fgtr.finishedgoodstransferrequestid
